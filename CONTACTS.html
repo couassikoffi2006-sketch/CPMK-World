@@ -61,5 +61,87 @@ Message : <br>
     <p>©digital.academy co</p>
 </footer>
 
+<!-- Inclusion des SDK Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+<script>
+    
+ // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBpB-Ni0H4mUgx6mQNGs18KgMlzJjTZlGc",
+  authDomain: "cpmk-world.firebaseapp.com",
+  projectId: "cpmk-world",
+  storageBucket: "cpmk-world.firebasestorage.app",
+  messagingSenderId: "586011868005",
+  appId: "1:586011868005:web:027cebe52d9bb9a1383f8c",
+  measurementId: "G-7KDFP5NC4T"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+  // Initialisation de Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // === GESTION DU FORMULAIRE ===
+  const contactForm = document.getElementById('contactForm');
+  const statusMessage = document.getElementById('statusMessage');
+
+  function getInputVal(id) {
+    return document.getElementById(id).value;
+  }
+
+  // Fonction pour sauvegarder le message dans Firestore
+  function saveMessage(name, email, message) {
+    return db.collection("messages").add({
+      name: name,
+      email: email,
+      message: message,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp() // horodatage serveur
+    });
+  }
+
+  // Écoute de la soumission du formulaire
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Empêche le rechargement de la page
+
+    const name = getInputVal('name');
+    const email = getInputVal('email');
+    const message = getInputVal('message');
+
+    // Validation simple
+    if (!name || !email || !message) {
+      statusMessage.textContent = "Tous les champs sont requis.";
+      statusMessage.style.color = "red";
+      return;
+    }
+
+    statusMessage.textContent = "Envoi en cours...";
+    statusMessage.style.color = "blue";
+
+    saveMessage(name, email, message)
+      .then(() => {
+        statusMessage.textContent = "Message envoyé avec succès !";
+        statusMessage.style.color = "green";
+        contactForm.reset(); // Vide le formulaire
+      })
+      .catch((error) => {
+        console.error("Erreur :", error);
+        statusMessage.textContent = "Erreur lors de l'envoi. Veuillez réessayer.";
+        statusMessage.style.color = "red";
+      });
+  });
+</script>
+
 </body>
 </html>
