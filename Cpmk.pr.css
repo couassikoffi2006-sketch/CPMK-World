@@ -1,0 +1,85 @@
+/* Style général de la page */
+body{
+font-family: Arial, sans-serif;
+background: linear-gradient(to right, #4facfe, #00f2fe);
+margin:0;
+padding:40px;
+color:#333;
+animation: apparition 1s ease-in;
+}
+
+/* Animation apparition */
+@keyframes apparition{
+from{
+opacity:0;
+transform: translateY(-20px);
+}
+to{
+opacity:1;
+transform: translateY(0);
+}
+}
+
+/* Titre principal */
+h1{
+text-align:center;
+color:white;
+font-size:40px;
+margin-bottom:20px;
+}
+
+/* Sous titres */
+h3{
+color:#004aad;
+margin-top:30px;
+}
+
+/* Paragraphe */
+p{
+font-size:18px;
+}
+
+/* Formulaire */
+form{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+width:350px;
+}
+
+/* Champs */
+input, select, textarea{
+width:100%;
+padding:10px;
+border-radius:5px;
+border:1px solid #ccc;
+transition:0.3s;
+}
+
+/* Effet quand on clique dans un champ */
+input:focus, textarea:focus, select:focus{
+border-color:#4facfe;
+box-shadow:0 0 5px #4facfe;
+outline:none;
+}
+
+/* Boutons */
+input[type="submit"], input[type="reset"]{
+background:#004aad;
+color:white;
+border:none;
+cursor:pointer;
+margin-top:10px;
+}
+
+/* Animation bouton */
+input[type="submit"]:hover{
+background:#00aaff;
+transform:scale(1.05);
+}
+
+input[type="reset"]:hover{
+background:red;
+transform:scale(1.05);
+}
